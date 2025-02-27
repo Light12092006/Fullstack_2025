@@ -1,5 +1,10 @@
+body{
+    background-color: #bcdaf9;
+}
+
 #titulo{
     text-align: center;
+    color: white;
 }
 
 a:hover{
