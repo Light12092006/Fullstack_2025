@@ -3,38 +3,29 @@ body{
 }
 
 #titulo{
-    
+    font-family: 'Arsenal SC', sans-serif;
     text-align: center;
     color: rgb(70, 67, 67)
 
 }
 
 a:hover{
-    color: red;
+    color: rgb(99, 90, 90);
 }
 
+table, th, td{
+    border: 10px solid;
+    width: 100%
+   
+}
 
-.arsenal-sc-regular {
-    font-family: "Arsenal SC", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .arsenal-sc-bold {
-    font-family: "Arsenal SC", serif;
-    font-weight: 700;
-    font-style: normal;
-  }
-  
-  .arsenal-sc-regular-italic {
-    font-family: "Arsenal SC", serif;
-    font-weight: 400;
-    font-style: italic;
-  }
-  
-  .arsenal-sc-bold-italic {
-    font-family: "Arsenal SC", serif;
-    font-weight: 700;
-    font-style: italic;
-  }
-  
+.link{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+}
