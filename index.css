@@ -33,3 +33,35 @@ a:hover{
     font-size: 16px;
     text-decoration: none;
 }
+
+.imagem-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    max-width: 100%;
+}
+
+.imagem-container img {
+    width: 300px;
+    height: auto;
+    border-radius: 8px; 
+}
+
+.iframe-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    max-width: 100%; 
+    flex-wrap: wrap; 
+}
+
+/* Estilos dos iframes */
+.iframe-container iframe {
+    width: 45%; /* Ajuste o tamanho conforme necessário */
+    height: 300px; /* Altura fixa para os iframes */
+    border-radius: 8px; /* Arredonda os cantos dos iframes */
+    border: 2px solid #ddd; /* Adiciona borda leve */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona sombra */
+}
