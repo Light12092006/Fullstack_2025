@@ -7,6 +7,7 @@
     align-items: center;
     border: solid black;
     padding: 10px;
+    font-family: COmic sans-serif;
 }
 
 .topo .imagem {
@@ -23,4 +24,18 @@
 .topo .imagem2{
     position: absolute;
     right: 40px;
+}
+
+.final{
+    background-color: #fee4c3;
+    color: black;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    
 }
