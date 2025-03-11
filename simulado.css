@@ -1,0 +1,25 @@
+.topo{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+.topo .texto{
+background-color: #664a94;
+color: white;
+font-size: 8px;
+width: 100px;
+margin: 10px;
+padding: 10px
+}
+.link{
+    color: blue;
+    display: flex;
+    justify-content: center;
+
+ }
+
+ .link a{
+    margin-right: 10px;
+ }
+
+
