@@ -1,3 +1,5 @@
+
+
 .topo {
     background-color: #fee4c3;
     color: #307e27;
@@ -8,6 +10,7 @@
     border: solid black;
     padding: 10px;
     font-family: COmic sans-serif;
+    flex-wrap: wrap;
 }
 
 .topo .imagem {
@@ -37,5 +40,6 @@
     position: absolute;
     bottom: 0;
     width: 100%;
+    flex-wrap: wrap;
     
 }
