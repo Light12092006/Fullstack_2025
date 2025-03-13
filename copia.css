@@ -82,18 +82,44 @@ body{
     flex-direction: row;
 }
    
-.meio table{
-    border: 
+table{
+    border: dashed,red;
+    color:black;
+    display: flex;
+    justify-content: center;
 }
 
+th,td{
+    border: solid red, 1px;
+    padding: 10px;
+}
+
+th{
+    color: red;
+}
+
+.meio .amarelo{
+    background-color: yellow;
+    color: black;
+    align-items: start;
+    margin: 50px;
+    width: 500px;
+}
 .final{
     background-color: #fee4c3;
     color: black;
     height: 90px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding: 10px;
     width: 100%;
+    font: size 18px;;
+    
+}
+.final img{
+    display: flex;
+    height: 100px;
+    width: auto;
     
 }
