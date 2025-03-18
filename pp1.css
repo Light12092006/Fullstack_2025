@@ -1,0 +1,99 @@
+body{
+    background-color: rgb(207, 203, 203);
+}
+
+.topo{
+    background-color: cornflowerblue;
+    display: flex;
+    width: 100%;
+    height: 40px;
+    flex-direction: row;
+    justify-content: flex-end;
+    color: white;
+    font-size: 15px;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+}
+
+.topo .a{
+    border-left: solid 1px;
+    border-right: solid 1px;
+    box-sizing:1px;
+    padding: 10px;
+    padding-right: 30px;
+}
+
+.sbc{
+    background-color: white;
+    display: flex;
+    margin: 30px;
+    padding: 30px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    margin-left: 0;
+  
+}
+
+.sbc .h1{
+    color: dodgerblue;
+}
+
+.sbc .h2{
+    color: rgb(22, 87, 87)
+}
+
+.sbc .h3{
+    color: orange;
+}
+
+.sbc .h4{
+    color: rgb(122, 199, 6);
+}
+
+.meio{
+    color: white;
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 10px;
+    padding: 10px;
+    width: 100%;
+    top: 200px;
+    font-size: 11px;
+}
+
+.meio p{
+    color: black;
+    font-size: 11px;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(207, 203, 203);
+}
+
+.meio .meio1{
+    background-color: orange;
+    margin: 30px;
+    width: 400px;
+}
+
+.meio .meio2{
+    background-color: rgb(118, 179, 26);
+    width: 500px;
+    margin: 30px;
+}
+
+.meio .meio3{
+    background-color:blue ;
+    margin: 30px;
+    width: 300px;
+}
+
+.meio ul{
+    color: black;
+    background-color:rgb(207, 203, 203) ;
+}
