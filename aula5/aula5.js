@@ -12,9 +12,9 @@
    // console.log(a)
 //}
 
-let mult = 1
-let x = parseInt(prompt("Digite um numero: "));
-for(let i = x; i > 0; i--){
-    mult *= i;
-    console.log(i,mult);
-}
+//let mult = 1
+//let x = parseInt(prompt("Digite um numero: "));
+//for(let i = x; i > 0; i--){
+  //  mult *= i;
+    //console.log(i,mult);
+//}
