@@ -60,5 +60,5 @@ function ex4(){
         let result = num1 * num2;
     }
     console.log(result);
-    document.getElementById('ex3_resp').innerHTML = "A soma de " + num1 + " e " + num2 + " é " + result;
+    document.getElementById('ex4_resp').innerHTML ="o resultado é: " + result;
 }

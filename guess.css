@@ -1,0 +1,19 @@
+body{
+    background-color: #cacdd1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.inserir{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+h1{
+    color: white;
+    width: 200px;
+}
