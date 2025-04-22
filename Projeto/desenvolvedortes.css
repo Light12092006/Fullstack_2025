@@ -1,0 +1,63 @@
+body {
+    background-color: #363B8E;
+    margin: 0;
+    color: white;
+}
+
+.topo {
+    background-color: #5C60C2;
+    color: white;
+    display: flex;
+    justify-content: center;  
+    position: relative;      
+    width: 100%;
+    height: 80px;
+    align-items: center;
+}
+
+.topo h1 {
+    margin: 0;
+}
+
+.topo .linkd, .topo .linke {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center; 
+    padding: 0 20px;
+}
+
+.topo .linkd {
+    right: 0;
+}
+
+.topo .linke {
+    left: 0;
+}
+
+.linkd a:hover, .linke a:hover {
+    color: white;
+}
+
+.meio1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    width: 400px;
+    height: 700px;
+    left: 350px;
+    background-color: black;
+    margin: 100px ; /* centraliza horizontalmente */
+    padding-top: 30px; /* espaço no topo */
+    color: white;
+}
+
+.meio1 h2, .meio1 h3 {
+    margin: 5px;
+    text-align: center;
+}
+.meio1 p{
+    margin: 20px;
+}
