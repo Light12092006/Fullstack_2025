@@ -57,7 +57,7 @@ app.post("/cadastrar", function(requisicao,resposta){
     })
 
 
-    resposta.render("resposta",{nome,login,senha,nasc});
+    res.redirect("/login");
     
 }) 
 
@@ -94,4 +94,8 @@ const uri ='mongodb+srv://jgcfabris12:tomate12@joao.5bzjezq.mongodb.net/?retryWr
 const client = new MongoClient(uri, { useNewUrlParser: true });
 
 var dbo = client.db("Joao");
-var usuarios = dbo.createCollection("usuarios",);
+var usuarios = dbo.Collection("usuarios");
+
+app.post('/logar'), function(requisicao,resposta){
+    let login
+}

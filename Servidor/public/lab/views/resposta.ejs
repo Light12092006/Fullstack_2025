@@ -1,7 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <head><title>Resposta</title></head>
-    <body>
-        <h1><%= status %></h1>
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Resposta</title>
+</head>
+<body>
+  <% if (typeof status !== 'undefined') { %>
+    <h2>Status: <%= status %></h2>
+  <% } else { %>
+    <h2>Dados cadastrados:</h2>
+    <p>Nome: <%= nome %></p>
+    <p>Login: <%= login %></p>
+    <p>Senha: <%= senha %></p>
+    <p>Data de nascimento: <%= nasc %></p>
+  <% } %>
+</body>
 </html>
