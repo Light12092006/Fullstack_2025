@@ -44,8 +44,18 @@ app.post("/cadastrar", function(requisicao,resposta){
     let nasc = requisicao.body.nascimento;
 
     console.log(nome,login,senha,nasc)
-    
-    var data = { db_nome: req.body.nome, db_login: req.body.login, db_senha: req.body.senha };
+
+    var data = { db_nome: nome, db_login: login, db_senha: senha, db_nasc: nasc };
+
+    usuarios.insertOne(data, function(err){
+        console.log(err)
+        if(err){
+            resposta.render("resposta", {status: "Erro", nome, login, senha, nasc})
+        }else{
+            resposta.render("resposta", {status: "Sucesso", nome, login, senha, nasc})
+        }
+    })
+
 
     resposta.render("resposta",{nome,login,senha,nasc});
     
