@@ -5,7 +5,7 @@ var mongodb = require("mongodb");
 let bodyParser = require("body-parser")
 
 const MongoClient = mongodb.MongoClient;
-const uri = 'mongodb+srv://jgcfabris12:JqfksxM6ePtlgqk1@joao.5bzjezq.mongodb.net/?retryWrites=true&w=majority&appName=Joao'
+const uri = 'mongodb+srv://jgcfabris12:zQm2hldztQL2kHug@joao.5bzjezq.mongodb.net/?retryWrites=true&w=majority&appName=Joao'
 const client = new MongoClient(uri, { useNewUrlParser: true });
 const path = require('path');
 
