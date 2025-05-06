@@ -1,15 +1,31 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <link href="login.css" rel="stylesheet">
-    </head>
-    <body>
-        <div>
-            <h1>Página de Login!</h1>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="div"><h1>Login</h1></div>
 
-            
-        </div>
-    </body>
+    <div class="div1">
+        <form action="/login" method="post">
+            User: <input type="text" name="User" required> 
+            <br>
+            Senha: <input type="password" name="Senha" required> 
+            <br><br>
+            <button type="submit">Entrar</button> 
+        </form>
+    </div>
+
+    <div class="div">
+        <p>Caso não tenha cadastro clique aqui:</p>
+    </div>
+
+    <div class="div">
+        <form action="/cadastrar" method="get">
+            <input type="submit" value="Cadastrar">
+        </form>
+    </div>
+</body>
 </html>

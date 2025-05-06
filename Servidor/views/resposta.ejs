@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Resposta</title>
+    <meta charset="UTF-8">
+    <title>Resposta</title>
+    <link rel="stylesheet" href="resposta.css">
 </head>
 <body>
-  <% if (typeof status !== 'undefined') { %>
-    <h2>Status: <%= status %></h2>
-  <% } else { %>
-    <h2>Dados cadastrados:</h2>
-    <p>Nome: <%= nome %></p>
-    <p>Login: <%= login %></p>
-    <p>Senha: <%= senha %></p>
-    <p>Data de nascimento: <%= nasc %></p>
-  <% } %>
+    
+
+    <% if (erro) { %>
+        <h2><%= erro %></h2>
+        <a href="/login">Tentar novamente</a>
+    <% } else { %>
+        <% if (nome) { %>
+            <h1>Bem vindo!</h1>
+            <p><strong>Nome:</strong> <%= nome %></p>
+        <% } %>
+        <p><strong>Usuário:</strong> <%= user %></p>
+        <p><strong>Senha:</strong> <%= senha %></p>
+
+        <a id="center" href="/login">Voltar para login</a> | <a id="center" href="/cadastrar">Cadastrar novo</a>
+    <% } %>
 </body>
 </html>
