@@ -1,0 +1,9 @@
+body{
+    background-image: url('paris.png');
+    background-position: center;
+    width: 100%;
+    height: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden; /* evita barras de rolagem */
+}
