@@ -1,56 +1,66 @@
-const canvas = document.getElementById('Canvas');
-    const ctx = canvas.getContext('2d');
+const botaoIniciar = document.getElementById("iniciar");
 
-    function redimensionarCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+const cenario = document.getElementById("cenario");
+const piloto = document.getElementById("piloto");
 
-    window.addEventListener('resize', redimensionarCanvas);
-    redimensionarCanvas(); // chama no início
+const larguraCenario = cenario.offsetWidth;
+const alturaCenario = cenario.offsetHeight;
 
-    const jogador = {
-      x: 200,
-      y: 200,
-      largura: 50,
-      altura: 50,
-      cor: 'red',
-      velocidade: 4,
-      desenha: function() {
-        ctx.drawImage(imgpiloto, this.x, this.y, this.largura, this.altura);
-      }
-      };
-    
+const larguraPiloto = piloto.offsetWidth;
+const alturaPiloto = piloto.offsetHeight;
 
-    const imgpiloto = new Image();
-imgpiloto.src = 'piloto.png';
+const velocidadePiloto = 2;
 
-    let teclasPressionadas = {};
+let posicaoHorizontal = (larguraCenario - larguraPiloto)/2;
+let posicaoVertical = (alturaCenario - alturaPiloto)/2;
+let direcaoHorizontal = 0;
+let direcaoVertical = 0;
 
-    document.addEventListener('keydown', function(event) {
-      teclasPressionadas[event.key.toLowerCase()] = true;
-    });
+const teclaPressionada = (tecla) => {
+  if (tecla.key === 'w') {
+    direcaoVertical = -1;
+  } else if (tecla.key === 'a') {
+    direcaoHorizontal = -1;
+  } else if (tecla.key === 's') {
+    direcaoVertical = 1;
+  } else if (tecla.key === 'd') {
+    direcaoHorizontal = 1;
+  }
+};
 
-    document.addEventListener('keyup', function(event) {
-      teclasPressionadas[event.key.toLowerCase()] = false;
-    });
+const teclaSolta = (tecla) => {
+  if (tecla.key === 'w' || tecla.key === 's') {
+    direcaoVertical = 0;
+  } else if (tecla.key === 'a' || tecla.key === 'd') {
+    direcaoHorizontal = 0;
+  }
+};
 
-    function atualizar() {
-        if (teclasPressionadas['w']) jogador.y -= jogador.velocidade;
-        if (teclasPressionadas['s']) jogador.y += jogador.velocidade;
-        if (teclasPressionadas['a']) jogador.x -= jogador.velocidade;
-        if (teclasPressionadas['d']) jogador.x += jogador.velocidade;
-      
-        // Limitar dentro do canvas
-        jogador.x = Math.max(0, Math.min(jogador.x, canvas.width - jogador.largura));
-        jogador.y = Math.max(0, Math.min(jogador.y, canvas.height - jogador.altura));
-      }
+const movePiloto = () => {
+  posicaoHorizontal += direcaoHorizontal * velocidadePiloto;
+  posicaoVertical += direcaoVertical * velocidadePiloto;
 
-    function animar() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      atualizar();
-      jogador.desenha();
-      requestAnimationFrame(animar);
-    }
+  if (posicaoHorizontal < 0) {
+    posicaoHorizontal = 0;
+  } else if (posicaoHorizontal + larguraPiloto > larguraCenario) {
+    posicaoHorizontal = larguraCenario - larguraPiloto;
+  }
 
-    animar();
+  if (posicaoVertical < 0) {
+    posicaoVertical = 0;
+  } else if (posicaoVertical + alturaPiloto > alturaCenario) {
+    posicaoVertical = alturaCenario - alturaPiloto;
+  }
+
+  piloto.style.left = posicaoHorizontal + "px";
+  piloto.style.top = posicaoVertical + "px";
+};
+
+const iniciarJogo = () => {
+  document.addEventListener("keydown", teclaPressionada);
+  document.addEventListener("keyup", teclaSolta);
+  setInterval(movePiloto, 10);
+  botaoIniciar.style.display = "none";
+};
+
+botaoIniciar.addEventListener("click", iniciarJogo);

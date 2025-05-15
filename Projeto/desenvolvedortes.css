@@ -61,6 +61,11 @@ body {
     margin: 20px;
 }
 
+.meio1 img{
+    width: 300px;
+    height: auto;
+}
+
 .meio2 {
     display: flex;
     flex-direction: column;
