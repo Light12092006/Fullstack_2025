@@ -3,6 +3,7 @@ const botaoIniciar = document.getElementById("iniciar");
 const cenario = document.getElementById("cenario");
 const piloto = document.getElementById("piloto");
 const vida = document.getElementById("vida");
+const pontos = document.getElementById("pontos");
 
 const larguraCenario = cenario.offsetWidth;
 const alturaCenario = cenario.offsetHeight;
@@ -25,8 +26,11 @@ const velocidadePiloto = 2;
 const velocidadeTiro = 20;
 
 let atirando = false;
+let tiroAtual = 0;
+
 
 let vidaAtural = 100;
+let pontosAtual = 0;
 
 let posicaoHorizontal = (larguraCenario - larguraPiloto)/2;
 let posicaoVertical = (alturaCenario - alturaPiloto)/2;
@@ -74,7 +78,11 @@ const movePiloto = () => {
 };
 
 const atirar = () => {
-  if (atirando){
+  const delayTiro = Date.now();
+  const atrasoTiro = delayTiro - tiroAtual;
+
+  if (atirando && atrasoTiro >= 100){
+    tiroAtual = Date.now();
     criaTiros(posicaoHorizontal + 110, posicaoVertical + 50);
   }
 }
@@ -133,7 +141,7 @@ const naveInimigas = () => {
   inimigo.style.backgroundPosition = "center";
   inimigo.style.backgroundRepeat = "no-repeat";
   inimigo.style.backgroundSize = "contain";
-  inimigo.style.zIndex = "5"; // Garante que fique atrás dos tiros
+  inimigo.style.zIndex = "5"; 
 
   const topAleatorio = Math.floor(Math.random() * (alturaCenario - 100));
   let posicaoLeft = larguraCenario;
@@ -163,8 +171,8 @@ const naveInimigas = () => {
     }
   }, 10);
   
-  inimigo.dataset.intervalo = moverInimigo;
-  intervalosInimigosIndividuais.push(moverInimigo);
+  inimigo.intervalo = moverInimigo;
+  clearInterval(naveInimiga.intervalo);
 };
 
 
@@ -191,7 +199,9 @@ const colisao = () => {
         vidaAtual--;
 
         if (vidaAtual <= 0) {
-          // Interrompe o movimento da nave
+          pontosAtual += 10;
+          pontos.textContent =`Pontos: ${pontosAtual}`;
+
           clearInterval(naveInimiga.dataset.intervalo);
           naveInimiga.remove();
         } else {
@@ -256,6 +266,7 @@ const iniciarJogo = () => {
   checacolisao = setInterval(colisao, 10); 
   intervaloInimigos = setInterval(naveInimigas, 2500);
   botaoIniciar.style.display = "none";
+  
 };
 
 
