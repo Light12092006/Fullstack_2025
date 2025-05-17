@@ -202,7 +202,7 @@ const colisao = () => {
           pontosAtual += 10;
           pontos.textContent =`Pontos: ${pontosAtual}`;
 
-          clearInterval(naveInimiga.dataset.intervalo);
+          clearInterval(naveInimiga.intervalo);
           naveInimiga.remove();
         } else {
           naveInimiga.setAttribute("data-vida", vidaAtual);
