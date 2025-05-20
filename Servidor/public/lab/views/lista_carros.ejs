@@ -1,0 +1,6 @@
+<h1>Lista de Carros</h1>
+<ul>
+    <% carros.forEach(function(carro) { %>
+        <li><%= carro.db_marca %> - <%= carro.db_modelo %> - <%= carro.db_ano %></li>
+    <% }); %>
+</ul>

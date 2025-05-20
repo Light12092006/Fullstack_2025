@@ -1,203 +1,129 @@
-require("colors");
-var http = require ("http");
-var express = require ("express");
-var mongodb = require("mongodb");
-let bodyParser = require("body-parser")
-
-const MongoClient = mongodb.MongoClient;
-const uri = 'mongodb+srv://jgcfabris12:zQm2hldztQL2kHug@joao.5bzjezq.mongodb.net/?retryWrites=true&w=majority&appName=Joao'
-const client = new MongoClient(uri, { useNewUrlParser: true });
+const http = require('http');
+const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
+const { render } = require('ejs');
+const MongoClient = require("mongodb").MongoClient;
 
-var dbo = client.db("Vini");
-var usuarios = dbo.collection("usuarios");
+// Conexão com o banco
+const uri = `mongodb+srv://jgcfabris12:12092006@joao.5bzjezq.mongodb.net/?retryWrites=true&w=majority&appName=Joao`;
+const client = new MongoClient(uri);
+var dbo = client.db("lab10");
+var usuarios = dbo.collection("usuarios_carros");
+var carros = dbo.collection("carros");
 
-var app = express ();
-app.use(express.static('./public'));
-app.use(bodyParser.urlencoded({extended: false }))
-app.use(bodyParser.json())
-app.set('view engine', 'ejs')
-app.set('views', './views');
-
-var server = http.createServer(app);
-server.listen(80);
-
-console.log("Servidor Rodando..." .rainbow);
-
-
-// app.get("/inicio",function(requisicao,resposta){
-//     resposta.redirect("exercicio/Home.html")
-// })
-
-// app.post("/inicio", function(requisicao,resposta){
-//     resposta.redirect("exercicio/Home.html")
-// })
-
-// app.get("/cadastrar", function(requisicao,resposta){
-//     let nome = requisicao.query.nome;
-//     let login = requisicao.query.login;
-//     let senha = requisicao.query.senha;
-//     let nasc = requisicao.query.nascimento;
-
-//     console.log(nome,login,senha,nasc)
-    
-// })
+var app = express();
+app.use(express.static('.public'));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 
-
-
-// app.post("/cadastrar", function(requisicao,resposta){
-//     let nome = requisicao.body.Nome;
-//     let login = requisicao.body.Login;
-//     let senha = requisicao.body.Senha;
-//     let nasc = requisicao.body.nascimento;
-
-//     console.log(nome,login,senha,nasc);
-
-//     var data = {db_nome: nome , db_login: login, db_senha: senha,db_nasci:nasc};
-
-//     usuarios.insertOne(data, function(err){
-//         console.log(err)
-//         if(err){
-//             resposta.render("resposta",{status: "Erro!" ,nome,login,senha,nasc});
-//         }
-//         else{
-//             resposta.render("resposta",{status: "Sucesso!", nome,login,senha,nasc});
-//         }
-//     })
-
-//     // resposta.render("resposta",{nome,login,senha,nasc});
-    
-// }) 
-
-// app.get("/for_ejs",function(requisicao,resposta){
-//     let valor = requisicao.query.valor;
-//     resposta.render("exemplo_for",{valor});
-// })
-
-// ----------------------------------------------------------------------------------------------------------------
-// Lista para armazenar usuários cadastrados
-let pessoas = [];
-
-app.get("/", function(req,res){
-    res.redirect("exercicio/cadastro.html")
+app.get('/', (req, res) => {
+    res.redirect('cadastro_usuarios.html');
 });
 
-app.get("/cadastrar", function(req,res){
-    res.redirect("exercicio/cadastro.html")
+// Inicia o servidor
+app.listen(80, () => {
+    console.log("servidor rodando");
 });
 
-app.get("/login", function(req,res){
-    res.redirect("exercicio/login.html")
+// Cadastrar usuários
+app.post('/cadastrar_usuario', function(req, resp) {
+    let data = {
+        db_nome: req.body.nome,
+        db_login: req.body.login,
+        db_senha: req.body.senha 
+    };
+
+    usuarios.insertOne(data, function(err) {
+        if (err) {
+            resp.render('resposta_usuario.ejs', { resposta: "Erro ao cadastrar usuário!" });
+        } else {
+            resp.redirect('/login.html'); 
+        }
+    });
 });
 
-// Cadastro de usuário
-app.post("/cadastrar", function(req,res){
-    let Nome = req.body.Nome;
-    let User = req.body.User;
-    let Senha = req.body.Senha;
-    console.log("Cadastro:", Nome, User, Senha);
+// Logar usuários
+app.post('/logar_usuario', function(req, resp) {
+    let data = { db_login: req.body.login, db_senha: req.body.senha };
 
-    // Adiciona o novo usuário
-    pessoas.push({Nome, User, Senha});
-
-    res.redirect("/login"); // Agora redireciona direto para a tela de login
+    usuarios.find(data).toArray(function(err, items) {
+        if (err) {
+            resp.render('resposta_usuario.ejs', { resposta: "Erro ao logar usuário" });
+        } else if (items.length == 0) {
+            resp.render('resposta_usuario.ejs', { resposta: "Usuário/senha não encontrados" });
+        } else {
+            // listar carros
+            carros.find().toArray(function(err, items) {
+                if (err) {
+                    resp.render('resposta_usuario.ejs', { resposta: "Erro ao carregar carros" });
+                } else {
+                    resp.render("lista_carros.ejs", { carros: items });
+                }
+            });
+        }
+    });
 });
 
-// Login de usuário
-app.post("/login", function(req,res){
-    let User  = req.body.User;
-    let Senha = req.body.Senha;
-    console.log("Tentativa de login:", User, Senha);
+// Cadastrar carro 
+app.post('/cadastrar_carro', function(req, resp) {
+    let data = {
+        db_marca: req.body.marca,
+        db_modelo: req.body.modelo,
+        db_ano: req.body.ano
+    };
 
-    // Procura usuário na lista
-    let encontrado = pessoas.find(u => u.User === User && u.Senha === Senha);
+    carros.insertOne(data, function(err) {
+        if (err) {
+            resp.render('resposta_usuario.ejs', { resposta: "Erro ao cadastrar carro" });
+        } else {
+            resp.render('resposta_usuario.ejs', { resposta: "Carro cadastrado com sucesso" });
+        }
+    });
+});
 
-    if (encontrado) {
-        // Login correto
-        res.render("resposta", {nome: encontrado.Nome, user: encontrado.User, senha: encontrado.Senha, erro: null});
-    } else {
-        // Login errado
-        res.render("resposta", {Nome: null, User: null, Senha: null, erro: "Usuário ou senha incorretos!"});
+
+// Gerenciar carros 
+app.post("/gerenciar_carros", function(req, resp) {
+    const acao = req.body.acao;
+
+    const filtro = {
+        db_marca: req.body.marca,
+        db_modelo: req.body.modelo,
+        db_ano: req.body.ano
+    };
+
+    if (acao === "atualizar") {
+        const novosDados = {
+            $set: {
+                db_marca: req.body.novamarca,
+                db_modelo: req.body.novomodelo,
+                db_ano: req.body.novoano
+            }
+        };
+
+        carros.updateOne(filtro, novosDados, function(err, result) {
+            if (err) {
+                resp.render('resposta_usuario.ejs', { resposta: "Erro ao atualizar carro!" });
+            } else if (result.modifiedCount === 0) {
+                resp.render('resposta_usuario.ejs', { resposta: "Carro não encontrado ou dados iguais!" });
+            } else {
+                resp.render('resposta_usuario.ejs', { resposta: "Carro atualizado com sucesso!" });
+            }
+        });
+
+    } else if (acao === "remover") {
+        carros.deleteOne(filtro, function(err, result) {
+            if (err) {
+                resp.render('resposta_usuario.ejs', { resposta: "Erro ao remover carro!" });
+            } else if (result.deletedCount === 0) {
+                resp.render('resposta_usuario.ejs', { resposta: "Esgotado" });
+            } else {
+                resp.render('resposta_usuario.ejs', { resposta: "Carro removido com sucesso!" });
+            }
+        });
     }
 });
-
-
-//--------------------
-
-// app.post('/logar', function(requisicao,resposta){
-//     let login = requisicao.body.login;
-//     let senha = requisicao.body.senha;
-//     console.log(login,senha);
-
-//     var data = {db_login: login, db_senha: senha}
-
-//     usuarios.find(data).toArray(function(err,item){
-//         console.log(item)
-//         if(item.length == 0){
-//             resposta.render("respostalogin",{status: "usuario/senha não encontrado"})
-//         }else if(err){
-//             resposta.render("respostalogin",{status: "erro ao logar"})
-//         }else {
-//             resposta.render("respostalogin",{status: "usuario logado"})
-//         }
-//     })
-// })
-
-
-//---------------------------------------------------------------------------------------------------------------------------------
-
-
-var dbo = client.db("jgcfabris12");
-var usuarios = dbo.collection("blog");
-
-async function connectDB() {
-  try {
-    await client.connect();
-    db = client.db('blog');
-    postsCollection = db.collection('posts');
-    console.log('Conectado ao MongoDB!');
-    
-    // Rotas
-    app.get('/', (req, res) => {
-      res.redirect('/exercicio/Projects.html'); // Redireciona para projetos
-    });
-
-    app.get('/blog', async (req, res) => {
-      try {
-        const posts = await postsCollection.find().sort({ createdAt: -1 }).toArray();
-        res.render('blog', { posts }); // Página dinâmica com EJS
-      } catch (err) {
-        res.status(500).send('Erro ao carregar posts');
-      }
-    });
-
-    app.get('/cadastrar_post', (req, res) => {
-      res.sendFile(path.join(__dirname, 'public', 'exercicio', 'cadastrar_post.html'));
-    });
-
-    app.post('/cadastrar-post', async (req, res) => {
-      try {
-        const { titulo, resumo, conteudo } = req.body;
-        await postsCollection.insertOne({
-          titulo,
-          resumo,
-          conteudo,
-          createdAt: new Date()
-        });
-        res.redirect('/blog');
-      } catch (err) {
-        res.status(500).send('Erro ao cadastrar post');
-      }
-    });
-
-    // Inicia servidor na porta 80
-    app.listen(80, () => {
-      console.log('Servidor rodando na porta 80');
-    });
-  } catch (err) {
-    console.error('Erro ao conectar ao MongoDB:', err);
-  }
-}
-
-connectDB();
